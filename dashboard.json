@@ -1,0 +1,91 @@
+{
+    "shared": true,
+    "lenses": [
+        {
+            "order": 0,
+            "parts": [
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "colSpan": 3,
+                        "rowSpan": 2
+                    },
+                    "metadata": {
+                        "inputs": [],
+                        "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                        "settings": {
+                            "content": {
+                                "settings": {
+                                    "content": "## Azure Container Instance Overview"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 2,
+                        "colSpan": 6,
+                        "rowSpan": 4
+                    },
+                    "metadata": {
+                        "inputs": [
+                            {
+                                "name": "query",
+                                "value": "Perf | where ObjectName == 'Processor' and CounterName == '% Processor Time' and InstanceName == 'my-container' | summarize avg(CounterValue) by bin(TimeGenerated, 1h)"
+                            }
+                        ],
+                        "type": "Extension/HubsExtension/PartType/LogAnalyticsPart",
+                        "settings": {
+                            "content": {
+                                "settings": {
+                                    "title": "CPU Usage",
+                                    "chartType": "line"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "position": {
+                        "x": 6,
+                        "y": 2,
+                        "colSpan": 6,
+                        "rowSpan": 4
+                    },
+                    "metadata": {
+                        "inputs": [
+                            {
+                                "name": "query",
+                                "value": "Perf | where ObjectName == 'Memory' and CounterName == 'Available MBytes' and InstanceName == 'my-container' | summarize avg(CounterValue) by bin(TimeGenerated, 1h)"
+                            }
+                        ],
+                        "type": "Extension/HubsExtension/PartType/LogAnalyticsPart",
+                        "settings": {
+                            "content": {
+                                "settings": {
+                                    "title": "Memory Usage",
+                                    "chartType": "line"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "model": {
+            "timeRange": {
+                "value": {
+                    "relative": {
+                        "duration": 24,
+                        "timeUnit": "hour"
+                    }
+                }
+            }
+        }
+    }
+}
