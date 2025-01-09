@@ -14,6 +14,10 @@ on:
   # # pull_request:
   #   branches: [ "main" ]
 
+permissions:
+  id-token: write
+  contents: read
+    
 jobs:
   build:
 
@@ -30,4 +34,37 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+       username: ${{ vars.DOCKERHUB_USERNAME }}
+       password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Build and push Docker images
+      # You may pin to the exact commit or the version.
+      uses: docker/build-push-action@v6.10.0
+      with:
+        push: true
+        # List of tags
+        tags: shweta001/app-java:git001
+      
+       
+        
+              
+
+    # - name: Azure Login
+    #   uses: Azure/login@v2.2.0
+    #   with:
+    #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    #     auth-type: Identity
+              
+    # - name: Azure CLI Action
+    #   uses: Azure/cli@v2.1.0
+    #   with:
+    #     # Specify the script here
+    #     inlineScript: 
+    #     # Azure CLI version to be used to execute the script. If not provided, latest version is used
+    #     azcliversion: latest
+              
