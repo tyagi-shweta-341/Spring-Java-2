@@ -41,11 +41,12 @@ jobs:
        password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-      
+
     - name: Build and push Docker images
       # You may pin to the exact commit or the version.
       uses: docker/build-push-action@v6.10.0
       with:
+        context: .
         push: true
         # List of tags
         tags: shweta001/app-java:git001
